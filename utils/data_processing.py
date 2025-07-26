@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import torch
 
 def load_data(file_path):
     """
@@ -85,5 +86,5 @@ def final_data_processing(file_path, input_len=120, output_len=24, stride=1, fil
     data = preprocess_data(data, fillna_method)
     x_data, y_data = create_moving_window_dataset(data, input_len, output_len, stride)
     
-    return x_data, y_data
+    return torch.tensor(x_data, dtype=torch.float32), torch.tensor(y_data, dtype=torch.float32)
 

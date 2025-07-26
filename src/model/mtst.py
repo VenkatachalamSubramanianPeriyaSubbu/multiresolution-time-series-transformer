@@ -25,13 +25,14 @@ class MTST(nn.Module):
         self.pe_high = PositionalEncoder(embed_dim, max_len)
         self.pe_mid = PositionalEncoder(embed_dim, max_len)
         self.pe_low = PositionalEncoder(embed_dim, max_len)
+        self.output_len = output_len
+        self.input_dim = input_dim
         self.transformer_high_res = TransformerBlock(embed_dim, heads, dropout, n_layers)
         self.transformer_mid_res = TransformerBlock(embed_dim, heads, dropout, n_layers)
         self.transformer_low_res = TransformerBlock(embed_dim, heads, dropout, n_layers)
         self.fusion_layer = nn.Linear(embed_dim * 3, embed_dim)
         self.linear1 = nn.Linear(embed_dim, embed_dim)
-        self.linear2 = nn.Linear(embed_dim, 1)
-        self.output_layer = nn.Linear(1, output_len)
+        self.linear2 = nn.Linear(embed_dim, output_len * 1)
         self.relu = nn.ReLU()
     
     def interpolate(self, x, target_size):
@@ -82,10 +83,9 @@ class MTST(nn.Module):
 
         fused = torch.cat((x_high, x_mid, x_low), dim=-1)
         fused = self.fusion_layer(fused)
-        fused = torch.mean(fused, dim=1) # Global average pooling. This vector summarizes all time steps into one fixed-length embedding.
         fused = self.linear1(fused)
         fused = torch.relu(fused)
-        fused = self.linear2(fused)
-        fused = torch.relu(fused)
-        forecast = self.output_layer(fused)
+        context = fused.mean(dim=1)
+        output = self.linear2(context) 
+        forecast = forecast = output.view(-1, self.output_len)
         return forecast
