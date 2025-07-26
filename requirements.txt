@@ -1,0 +1,29 @@
+# Core deep learning framework
+torch>=1.9.0
+torchvision>=0.10.0
+
+# Data manipulation and analysis
+pandas>=1.3.0
+numpy>=1.21.0
+
+# Visualization
+matplotlib>=3.4.0
+seaborn>=0.11.0
+
+# Scientific computing
+scipy>=1.7.0
+
+# Optional: For enhanced data processing
+scikit-learn>=1.0.0
+
+# Optional: For tensorboard logging
+tensorboard>=2.7.0
+
+# Optional: For progress bars
+tqdm>=4.62.0
+
+# Optional: For configuration management
+PyYAML>=5.4.0
+
+# Optional: For reproducibility
+random-word>=1.0.7
