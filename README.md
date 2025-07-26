@@ -256,8 +256,7 @@ If you use this code in your research, please cite the original paper:
   pages={2024}
 }
 ```
-The data is from 
-''' https://www.kaggle.com/datasets/sudalairajkumar/cryptocurrencypricehistory?select=coin_Aave.csv '''
+The data is from https://www.kaggle.com/datasets/sudalairajkumar/cryptocurrencypricehistory?select=coin_Aave.csv 
 
 ## Acknowledgments
 
